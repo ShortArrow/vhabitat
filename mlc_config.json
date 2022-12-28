@@ -1,0 +1,13 @@
+{
+  "ignorePatterns": [
+  ],
+  "replacementPatterns": [
+  ],
+  "httpHeaders": [
+  ],
+  "timeout": "20s",
+  "retryOn429": true,
+  "retryCount": 5,
+  "fallbackRetryDelay": "90s",
+  "aliveStatusCodes": [200, 206]
+}
