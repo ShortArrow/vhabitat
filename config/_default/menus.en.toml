@@ -1,0 +1,25 @@
+# config/_default/menus.toml
+
+[[main]]
+name = "Top"
+url = "/"
+weight = -200
+
+[[main]]
+name = "Origins"
+url = "/origins/"
+weight = -100
+
+[[main]]
+name = "Addons"
+url = "/browseraddons/"
+weight = 10
+
+[[main]]
+name = "Playground"
+url = "/playgrouds/"
+weight = 10
+
+[[footer]]
+name = "p.p."
+url = "/privacypolicy"
