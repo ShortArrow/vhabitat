@@ -22,7 +22,7 @@ Turn cursor browsing of you into Neovim normal mode.
 - [FireFox Addon](https://addons.mozilla.org/en-US/firefox/addon/vimium-c/):link:
 - [Chrome Addon](https://chrome.google.com/webstore/detail/vimium-c-all-by-keyboard/hfjbmagddngcpeloejdejnfgbamkjaeg):link:
 
-## Ghost
+## GhostText
 
 Use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser and vice.
 
