@@ -8,44 +8,44 @@ The Vim Lurks In These Web Browser Extensions
 
 ## Dart
 
-- [Playground](https://dartpad.dev/)
-- [GitHub repository](https://github.com/dart-lang/dart-pad)
+- [Playground](https://dartpad.dev/):link:
+- [GitHub repository](https://github.com/dart-lang/dart-pad){{< icon "github" >}}
 
-## TypeScript
+## TypeScript 
 
-- [Playground](https://www.typescriptlang.org/play)
-- [Pluin](https://www.npmjs.com/package/ts-playground-plugin-vim)
+- [Playground](https://www.typescriptlang.org/play):link:
+- [Plugin](https://www.npmjs.com/package/ts-playground-plugin-vim):link:
 
 ## Rust
 
-- [Playground](https://play.rust-lang.org/)
-- [Usage](https://play.rust-lang.org/help#features-customization)
-- [GitHub repository](https://github.com/integer32llc/rust-playground)
+- [Playground](https://play.rust-lang.org/):link:
+- [Usage](https://play.rust-lang.org/help#features-customization):link:
+- [GitHub repository](https://github.com/integer32llc/rust-playground){{< icon "github" >}}
 
 ## Go
 
-- [Playground](https://goplay.tools/) -- Unofficial
-- [GitHub repository](https://github.com/x1unix/go-playground)
+- [Playground](https://goplay.tools/):link: -- Unofficial
+- [GitHub repository](https://github.com/x1unix/go-playground){{< icon "github" >}}
 
 ## Multi Languages
 
-- [LeetCode](https://leetcode.com/playground/new/empty)
-- [tutorialspoint Coding Ground For Developers](https://www.tutorialspoint.com/codingground.htm)
-- [Wandbox](https://wandbox.org/)
-- [CodingGame](https://www.codingame.com/ide/puzzle/onboarding)
+- [LeetCode](https://leetcode.com/playground/new/empty):link:
+- [tutorialspoint Coding Ground For Developers](https://www.tutorialspoint.com/codingground.htm):link:
+- [Wandbox](https://wandbox.org/):link:
+- [CodingGame](https://www.codingame.com/ide/puzzle/onboarding):link:
 
 ## not infected with vim
 
-- [Nim](https://play.nim-lang.org/)
-- [Lua](https://www.lua.org/demo.html)
-- [Sololearn Code Playground](https://www.sololearn.com/compiler-playground)
-- [EDA playground](https://edaplayground.com/)
-- [Online GDB](https://www.onlinegdb.com/)
-- [C Playgrounds](https://cplayground.com/)
-- [Compiler Explorer](https://godbolt.org/)
-- [PlayCode](https://xyynext.xyz/playcode/)
-- [trinket](https://trinket.io/)
-- [Online Python](https://www.online-python.com/)
-- [crumb.sh](https://crumb.sh/)
-- [OneCompiler](https://onecompiler.com/)
-- [Jdoodle](https://www.jdoodle.com/)
+- [Nim](https://play.nim-lang.org/):link:
+- [Lua](https://www.lua.org/demo.html):link:
+- [Sololearn Code Playground](https://www.sololearn.com/compiler-playground):link:
+- [EDA playground](https://edaplayground.com/):link:
+- [Online GDB](https://www.onlinegdb.com/):link:
+- [C Playgrounds](https://cplayground.com/):link:
+- [Compiler Explorer](https://godbolt.org/):link:
+- [PlayCode](https://xyynext.xyz/playcode/):link:
+- [trinket](https://trinket.io/):link:
+- [Online Python](https://www.online-python.com/):link:
+- [crumb.sh](https://crumb.sh/):link:
+- [OneCompiler](https://onecompiler.com/):link:
+- [Jdoodle](https://www.jdoodle.com/):link:

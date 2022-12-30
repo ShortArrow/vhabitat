@@ -6,14 +6,14 @@
 
 ## Vi
 
-- [Wiki](https://www.wikiwand.com/en/Vi)
+- [Wiki](https://www.wikiwand.com/en/Vi):link:
 
 ## Vim
 
-- [GitHub repository](https://github.com/vim/vim)
-- [Official](https://www.vim.org/)
+- [GitHub repository](https://github.com/vim/vim){{< icon "github">}}
+- [Official](https://www.vim.org/):link:
 
 ## Neovim
 
-- [GitHub repository](https://github.com/neovim/neovim)
-- [Official](https://neovim.io/)
+- [GitHub repository](https://github.com/neovim/neovim){{<icon "github">}}
+- [Official](https://neovim.io/):link:

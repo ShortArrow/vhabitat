@@ -20,6 +20,11 @@ name = "Playground"
 url = "/playgrouds/"
 weight = 10
 
+[[main]]
+name = "Singles"
+url = "/singles/"
+weight = 10
+
 [[footer]]
 name = "p.p."
 url = "/privacypolicy"
