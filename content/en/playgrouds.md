@@ -27,6 +27,11 @@ The Vim Lurks In These Web Browser Extensions
 - [Playground](https://goplay.tools/):link: -- Unofficial
 - [GitHub repository](https://github.com/x1unix/go-playground){{< icon "github" >}}
 
+## Colaboratory
+
+- [Playground](https://colab.research.google.com/):link:
+- [GitHub repository](https://github.com/googlecolab){{< icon "github" >}}
+
 ## Multi Languages
 
 - [LeetCode](https://leetcode.com/playground/new/empty):link:
