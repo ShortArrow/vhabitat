@@ -19,8 +19,8 @@ The Vim Lurks In These Web Browser Extensions
 ## Rust
 
 - [Playground](https://play.rust-lang.org/):link:
-- [Usage](https://play.rust-lang.org/help#features-customization):link:
 - [GitHub repository](https://github.com/integer32llc/rust-playground){{< icon "github" >}}
+- [Usage](https://play.rust-lang.org/help#features-customization):link:
 
 ## Go
 
@@ -31,6 +31,7 @@ The Vim Lurks In These Web Browser Extensions
 
 - [Playground](https://colab.research.google.com/):link:
 - [GitHub repository](https://github.com/googlecolab){{< icon "github" >}}
+- [Usage](https://colab.research.google.com/notebooks/editor_details.ipynb#scrollTo=bEXkvERUtU5O):link:
 
 ## Multi Languages
 
