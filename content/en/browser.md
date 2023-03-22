@@ -1,6 +1,6 @@
-# Browser Addons
+# Browser Extensions
 
-The Vim Lurks In These Web Browser Extensions 
+The Vim Lurks In These Extensions 
 
 {{< alert >}}
 **Warning!** This writing is WIP!

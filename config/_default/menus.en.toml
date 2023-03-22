@@ -11,8 +11,13 @@ url = "/origins/"
 weight = -100
 
 [[main]]
-name = "Addons"
-url = "/browseraddons/"
+name = "Browser"
+url = "/browser/"
+weight = 10
+
+[[main]]
+name = "IDE"
+url = "/ide/"
 weight = 10
 
 [[main]]
