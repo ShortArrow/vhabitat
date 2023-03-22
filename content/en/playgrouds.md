@@ -47,7 +47,7 @@ The Vim Lurks In These Web Browser Extensions
 - [Sololearn Code Playground](https://www.sololearn.com/compiler-playground):link:
 - [EDA playground](https://edaplayground.com/):link:
 - [Online GDB](https://www.onlinegdb.com/):link:
-- [C Playgrounds](https://cplayground.com/):link:
+<!-- - [C Playgrounds](https://cplayground.com/):link: -->
 - [Compiler Explorer](https://godbolt.org/):link:
 - [PlayCode](https://xyynext.xyz/playcode/):link:
 - [trinket](https://trinket.io/):link:
