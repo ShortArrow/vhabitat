@@ -22,6 +22,15 @@ Turn cursor browsing of you into Neovim normal mode.
 - [FireFox Addon](https://addons.mozilla.org/en-US/firefox/addon/vimium-c/):link:
 - [Chrome Addon](https://chrome.google.com/webstore/detail/vimium-c-all-by-keyboard/hfjbmagddngcpeloejdejnfgbamkjaeg):link:
 
+## Vimmatic
+
+ Allows you to browse web pages with Vim-like key binds.
+
+- [GitHub repository](https://github.com/ueokande/vimmatic):link:
+- [FireFox Addon](https://addons.mozilla.org/en-US/firefox/addon/vimmatic/):link:
+- [Chrome Addon](https://chrome.google.com/webstore/detail/vimmatic/pghmfgnakhjiphmlcnhfpgopkcjhiedc):link:
+- [Official](https://ueokande.github.io/vimmatic/):link:
+
 ## GhostText
 
 Use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser and vice.
