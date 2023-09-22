@@ -50,6 +50,13 @@ Vim engine for JetBrains IDEs
 - [GitHub repository](https://github.com/JetBrains/ideavim):link:
 - [WebSite](https://plugins.jetbrains.com/plugin/164-ideavim):link:
 
+### Eclipse
+
+Vrapper is Vim Plugin for Eclipse
+
+- [GitHub repository](https://github.com/vrapper/vrapper):link:
+- [WebSite](https://marketplace.eclipse.org/content/vrapper-vim):link:
+
 ## Xcode
 
 Xcode 13 introduces Vim key bindings, emulating a vim experience in the source editor combined with the existing editor functionality.
