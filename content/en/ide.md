@@ -66,3 +66,10 @@ Xcode 13 introduces Vim key bindings, emulating a vim experience in the source e
 - [News in Github](https://github.com/XVimProject/XVim2/issues/380):link:
 - [Release Note](https://developer.apple.com/documentation/xcode-release-notes/xcode-13-release-notes):link:
 - [WebSite](https://plugins.jetbrains.com/plugin/164-ideavim):link:
+
+## Sublime
+
+### Vintage
+
+- [GitHub repository](https://github.com/sublimehq/Vintage):link:
+- [WebSite](https://www.sublimetext.com/docs/vintage.html):link:
