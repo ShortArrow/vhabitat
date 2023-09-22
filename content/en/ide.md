@@ -50,7 +50,9 @@ Vim engine for JetBrains IDEs
 - [GitHub repository](https://github.com/JetBrains/ideavim):link:
 - [WebSite](https://plugins.jetbrains.com/plugin/164-ideavim):link:
 
-### Eclipse
+## Eclipse
+
+### Vrapper
 
 Vrapper is Vim Plugin for Eclipse
 
