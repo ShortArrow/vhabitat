@@ -1,8 +1,8 @@
 #
 {{< lead >}}
-The Vim  Lurks In ... 
+Fantastic Vimmer Software and Where to Find Them
 {{< /lead >}}
 
 {{< alert >}}
-**Warning!** This writing is WIP!
+**Warning!** The Vim  Lurks In ...
 {{< /alert >}}
