@@ -35,7 +35,7 @@ The Vim Lurks In These Playgrounds
 
 ## Multi Languages
 
-- [LeetCode](https://leetcode.com/#:~:text=Playground):link:
+- [LeetCode](https://leetcode.com/):link:
 - [tutorialspoint Coding Ground For Developers](https://www.tutorialspoint.com/codingground.htm):link:
 - [Wandbox](https://wandbox.org/):link:
 - [CodingGame](https://www.codingame.com/ide/puzzle/onboarding):link:
