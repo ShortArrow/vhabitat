@@ -8,6 +8,7 @@ defaultContetLanguageInSubdir = true
 hasCJKLanguage = true
 
 enableRobotsTXT = true
+enableEmoji = true
 [pagination]
   pagerSize = 20
 summaryLength = 30
