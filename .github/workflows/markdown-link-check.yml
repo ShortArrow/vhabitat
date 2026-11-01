@@ -22,4 +22,3 @@ jobs:
         file-path: ./README.md
         file-extension: .md
         max-depth: -1
-        config-file: mlc_config.json
