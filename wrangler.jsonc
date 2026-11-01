@@ -9,5 +9,8 @@
     "directory": "./public",
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash"
-  }
+  },
+  "preview_urls": true,
+  "previews": {},
+  "routes": [{ "pattern": "vhabitat.shortarrow.jp", "zone_name": "shortarrow.jp", "custom_domain": true }]
 }
