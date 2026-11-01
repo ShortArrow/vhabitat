@@ -1,6 +1,6 @@
 # config/_default/config.toml
 
-baseURL = "/"
+baseURL = "https://vhabitat.shortarrow.jp/"
 locale = "en"
 
 DefaultContentLanguage = "en"
