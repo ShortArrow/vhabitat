@@ -45,7 +45,6 @@ A keyboard-driven, vim-like browser based on Python and Qt.
 ## twterm
 terminal user interface of twitter written in ruby
 
-- [Official Site](https://twterm.ryota-ka.me/):link:
 - [GitHub repository](https://github.com/ryota-ka/twterm):link:
 
 ## h-m-m

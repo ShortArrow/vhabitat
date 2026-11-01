@@ -1,14 +1,16 @@
 # config/_default/config.toml
 
 baseURL = "/"
-languageCode = "en"
+locale = "en"
 
 DefaultContentLanguage = "en"
 defaultContetLanguageInSubdir = true
 hasCJKLanguage = true
 
 enableRobotsTXT = true
-paginate = 20
+enableEmoji = true
+[pagination]
+  pagerSize = 20
 summaryLength = 30
 
 buildDrafts = false
