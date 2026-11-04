@@ -1,3 +1,6 @@
+---
+aliases: ["/playgrouds/"]
+---
 # Playgrounds
 
 The Vim Lurks In These Playgrounds 

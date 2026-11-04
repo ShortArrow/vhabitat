@@ -1,7 +1,7 @@
 # Singles
 
 {{< lead >}}
-The Vim Lurks In These TUI Softwares
+The Vim Lurks In These Standalone Software
 {{< /lead >}}
 
 {{< alert >}}
@@ -17,8 +17,8 @@ A keyboard-driven, vim-like browser based on Python and Qt.
 ## btm
 {{< icon "rustlang" >}} cross-platform graphical process/system monitor for TUI written in rust
 
-- [Official Site](https://amanusk.github.io/s-tui/):link:
-- [GitHub repository](https://github.com/amanusk/s-tui):link:
+- [Official Site](https://clementtsang.github.io/bottom/):link:
+- [GitHub repository](https://github.com/ClementTsang/bottom):link:
 
 ## gitui
 {{< icon "rustlang" >}} terminal user interface of git written in rust
@@ -41,11 +41,6 @@ A keyboard-driven, vim-like browser based on Python and Qt.
 {{< icon "golang" >}} terminal user interface of github written in golang
 
 - [GitHub repository](https://github.com/skanehira/github-tui):link:
-
-## twterm
-terminal user interface of twitter written in ruby
-
-- [GitHub repository](https://github.com/ryota-ka/twterm):link:
 
 ## h-m-m
 terminal user interface of mind map written in php.

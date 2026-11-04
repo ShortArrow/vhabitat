@@ -15,7 +15,7 @@ Vim-mode for VS Code using embedded Neovim
 - [GitHub repository](https://github.com/vscode-neovim/vscode-neovim):link:
 - [WebSite](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim):link:
 
-### VSCode Neovim
+### VSCodeVim
 
 Vim emulation for Visual Studio Code
 
@@ -65,7 +65,6 @@ Xcode 13 introduces Vim key bindings, emulating a vim experience in the source e
 
 - [News in Github](https://github.com/XVimProject/XVim2/issues/380):link:
 - [Release Note](https://developer.apple.com/documentation/xcode-release-notes/xcode-13-release-notes):link:
-- [WebSite](https://plugins.jetbrains.com/plugin/164-ideavim):link:
 
 ## Sublime
 
