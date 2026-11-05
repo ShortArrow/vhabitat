@@ -11,5 +11,8 @@ params:
       url: https://addons.mozilla.org/en-US/firefox/addon/ghosttext/
     - label: "Chrome Web Store"
       url: https://chrome.google.com/webstore/detail/ghosttext/godiecgffnchndlihlpaajjcplehddca
+resources:
+  - src: plate.svg
+    title: "The letter-ghost, passing between two windows with a line of text in its tail"
 ---
 Writes browser text fields from your text editor. What you type in the editor appears in the browser at once, and the other way round.

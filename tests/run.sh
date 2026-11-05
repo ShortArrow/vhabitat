@@ -26,6 +26,10 @@ done
 
 has "$out/browser/firenvim/index.html" '<a class="bestiary-choice" href="/kind/parasite/"'
 has "$out/kind/mimic/index.html" 'href="/ide/ideavim/"'
+for entry in browser/firenvim browser/ghosttext; do
+  has "$out/$entry/index.html" '<figure class="bestiary-plate">'
+done
+has "$out/ide/ideavim/index.html" '<figure class="bestiary-plate bestiary-plate-wanted">'
 grep -A2 'class="bestiary-field-label">Last sighted<' "$out/browser/firenvim/index.html" | grep -q '<time datetime="20[0-9][0-9]-' || fail "Firenvim shows no date it was last sighted"
 has "$out/kind/index.html" 'href="/kind/symbiont/"'
 has "$out/browser/firenvim/index.html" '<a href="https://github.com/glacambre/firenvim">GitHub repository</a>'
