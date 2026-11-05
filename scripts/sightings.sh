@@ -1,7 +1,7 @@
 #!/bin/sh
 # Sets params.lastsighted in every entry to the date of the newest commit on the default branch
 # of the repository its "GitHub repository" sighting links to, and leaves entries without one alone.
-# Needs gh, authenticated (GH_TOKEN in Actions), and GNU sed. See docs/adr/0004.
+# Run it when entries are reviewed or a new edition is cut. Needs gh, authenticated (GH_TOKEN in Actions), and GNU sed. See docs/adr/0004.
 set -eu
 root=$(cd "$(dirname "$0")/.." && pwd)
 
