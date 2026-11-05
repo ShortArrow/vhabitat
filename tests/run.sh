@@ -17,6 +17,7 @@ home=$out/index.html
 has "$home" 'Fantastic Vimmer Software and Where to Find Them'
 has "$home" 'googletagmanager.com/gtag/js?id=G-8HP6ECSQKQ'
 grep -A3 '<footer' "$home" | grep -q 'href="/privacypolicy/">Privacy policy</a>' || fail "home has no footer link to the privacy policy"
+grep -A6 '<footer' "$home" | grep -q 'href="/kind/">Kinds</a>' || fail "home has no footer link to the kinds"
 
 for page in "$out"/*/*/index.html; do
   case $page in "$out"/kind/*) continue ;; esac
