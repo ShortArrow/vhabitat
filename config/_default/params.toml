@@ -4,6 +4,7 @@
   key = "kind"
   label = "Kind"
   type = "choice"
+  pages = true
   [[bestiary.fields.choices]]
     value = "progenitor"
     label = "Progenitor"
