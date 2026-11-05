@@ -12,22 +12,27 @@
     value = "progenitor"
     label = "Progenitor"
     color = "#8b3a2b"
+    nightColor = "#dc897a"
   [[bestiary.fields.choices]]
     value = "parasite"
     label = "Parasite"
     color = "#6b3a7a"
+    nightColor = "#be8dcd"
   [[bestiary.fields.choices]]
     value = "symbiont"
     label = "Symbiont"
-    color = "#2b6b4a"
+    color = "#255c40"
+    nightColor = "#56c28b"
   [[bestiary.fields.choices]]
     value = "mimic"
     label = "Mimic"
-    color = "#2b5d8b"
+    color = "#27557f"
+    nightColor = "#6aa3d7"
   [[bestiary.fields.choices]]
     value = "kin"
     label = "Kin"
-    color = "#8a6a1f"
+    color = "#654d17"
+    nightColor = "#dcac3c"
 
 [[bestiary.fields]]
   key = "habitat"

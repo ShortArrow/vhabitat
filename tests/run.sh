@@ -11,6 +11,7 @@ has() { grep -q -- "$2" "$1" || fail "$1 lacks $2"; }
 sections() { grep -o 'class="bestiary-index-section"[^>]*>[^<]*<a [^>]*>[^<]*' "$1" | sed 's/.*>//' | paste -sd, -; }
 
 hugo --panicOnWarning -s "$root" -d "$out" >/dev/null
+awk -f "$root/tests/seal-contrast.awk" "$root/config/_default/params.toml" >/dev/null || fail "a kind's seal is too faint against the paper, by day or by night: $(awk -f "$root/tests/seal-contrast.awk" "$root/config/_default/params.toml")"
 home=$out/index.html
 
 [ "$(sections "$home")" = "Origins,Browser Extensions,IDE and Programming Editors,Playgrounds,Singles" ] || fail "home index sections: $(sections "$home")"
