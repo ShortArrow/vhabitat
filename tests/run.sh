@@ -19,10 +19,13 @@ has "$home" 'googletagmanager.com/gtag/js?id=G-8HP6ECSQKQ'
 grep -A3 '<footer' "$home" | grep -q 'href="/privacypolicy/">Privacy policy</a>' || fail "home has no footer link to the privacy policy"
 
 for page in "$out"/*/*/index.html; do
+  case $page in "$out"/kind/*) continue ;; esac
   grep -q 'class="bestiary-field-label">Kind<' "$page" || fail "$page has no kind"
 done
 
-has "$out/browser/firenvim/index.html" 'data-choice="parasite"'
+has "$out/browser/firenvim/index.html" '<a class="bestiary-choice" href="/kind/parasite/"'
+has "$out/kind/mimic/index.html" 'href="/ide/ideavim/"'
+has "$out/kind/index.html" 'href="/kind/symbiont/"'
 has "$out/browser/firenvim/index.html" '<a href="https://github.com/glacambre/firenvim">GitHub repository</a>'
 has "$out/playgrouds/index.html" 'url=https://vhabitat.shortarrow.jp/playgrounds/'
 
