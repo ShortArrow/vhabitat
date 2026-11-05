@@ -15,6 +15,7 @@ home=$out/index.html
 
 [ "$(sections "$home")" = "Origins,Browser Extensions,IDE and Programming Editors,Playgrounds,Singles" ] || fail "home index sections: $(sections "$home")"
 has "$home" 'Fantastic Vimmer Software and Where to Find Them'
+grep -q '<link rel="icon" type="image/svg+xml" href="/favicon\.[0-9a-f]*\.svg"' "$home" || fail "home links no favicon"
 has "$home" 'googletagmanager.com/gtag/js?id=G-8HP6ECSQKQ'
 grep -A3 '<footer' "$home" | grep -q 'href="/privacypolicy/">Privacy policy</a>' || fail "home has no footer link to the privacy policy"
 grep -A6 '<footer' "$home" | grep -q 'href="/kind/">Kinds</a>' || fail "home has no footer link to the kinds"
