@@ -26,6 +26,7 @@ done
 
 has "$out/browser/firenvim/index.html" '<a class="bestiary-choice" href="/kind/parasite/"'
 has "$out/kind/mimic/index.html" 'href="/ide/ideavim/"'
+grep -A2 'class="bestiary-field-label">Last sighted<' "$out/browser/firenvim/index.html" | grep -q '<time datetime="20[0-9][0-9]-' || fail "Firenvim shows no date it was last sighted"
 has "$out/kind/index.html" 'href="/kind/symbiont/"'
 has "$out/browser/firenvim/index.html" '<a href="https://github.com/glacambre/firenvim">GitHub repository</a>'
 has "$out/playgrouds/index.html" 'url=https://vhabitat.shortarrow.jp/playgrounds/'

@@ -3,6 +3,7 @@ title: "Better Go Playground"
 params:
   kind: mimic
   habitat: "Web"
+  lastsighted: 2026-11-05
   sightings:
     - label: "Playground"
       url: https://goplay.tools/

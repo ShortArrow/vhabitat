@@ -1,0 +1,33 @@
+name: sightings
+
+on:
+  schedule:
+    - cron: "17 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  sightings:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+    - run: sh scripts/sightings.sh
+    - name: Propose the new dates
+      run: |
+        git diff --quiet && { echo "no entry was sighted anew"; exit 0; }
+        branch="sightings/$(date -u +%F)"
+        git switch -c "$branch"
+        git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+          commit -qam "Update when each entry was last sighted"
+        git push -q origin "$branch"
+        gh pr create --head "$branch" --title "Update when each entry was last sighted" \
+          --body "Dates of the newest commit on each entry's repository, from scripts/sightings.sh."
+        # Pull requests opened with the workflow token do not trigger pull_request workflows; start the required checks by hand.
+        gh workflow run site.yml --ref "$branch"
+        gh workflow run markdown-link-check.yml --ref "$branch"

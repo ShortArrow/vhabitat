@@ -2,6 +2,7 @@
 title: "Neovim"
 params:
   kind: progenitor
+  lastsighted: 2026-11-05
   sightings:
     - label: "GitHub repository"
       url: https://github.com/neovim/neovim

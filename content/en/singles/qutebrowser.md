@@ -3,6 +3,7 @@ title: "qutebrowser"
 params:
   kind: mimic
   habitat: "Desktop"
+  lastsighted: 2026-10-21
   sightings:
     - label: "Official site"
       url: https://www.qutebrowser.org/

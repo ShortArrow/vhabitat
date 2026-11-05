@@ -3,6 +3,7 @@ title: "Vimmatic"
 params:
   kind: mimic
   habitat: "Firefox, Chrome"
+  lastsighted: 2026-11-02
   sightings:
     - label: "Official site"
       url: https://ueokande.github.io/vimmatic/
