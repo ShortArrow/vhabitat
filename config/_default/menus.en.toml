@@ -1,5 +1,11 @@
 # config/_default/menus.en.toml
 
 [[footer]]
+name = "Kinds"
+pageRef = "/kind"
+weight = 10
+
+[[footer]]
 name = "Privacy policy"
 pageRef = "/privacypolicy"
+weight = 20
