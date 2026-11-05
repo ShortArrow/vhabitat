@@ -1,7 +1,7 @@
 module github.com/ShortArrow/vhabit
 
-go 1.19
+go 1.22
 
 require (
-	github.com/nunocoracao/blowfish/v3 v3.9.0 // indirect
+	github.com/ShortArrow/hugo-theme-bestiary v0.2.0 // indirect
 )

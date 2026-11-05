@@ -1,35 +1,5 @@
-# config/_default/menus.toml
-
-[[main]]
-name = "Top"
-url = "/"
-weight = -200
-
-[[main]]
-name = "Origins"
-url = "/origins/"
-weight = -100
-
-[[main]]
-name = "Browser"
-url = "/browser/"
-weight = 10
-
-[[main]]
-name = "IDE"
-url = "/ide/"
-weight = 10
-
-[[main]]
-name = "Playground"
-url = "/playgrounds/"
-weight = 10
-
-[[main]]
-name = "Singles"
-url = "/singles/"
-weight = 10
+# config/_default/menus.en.toml
 
 [[footer]]
-name = "p.p."
-url = "/privacypolicy"
+name = "Privacy policy"
+pageRef = "/privacypolicy"

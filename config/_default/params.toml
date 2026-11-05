@@ -1,69 +1,41 @@
 # config/_default/params.toml
 
-colorScheme = "blowfish" # congo (default), avocado, ocean, fire and slate.
-defaultAppearance = "dark" # valid options: light or dark
-autoSwitchAppearance = true
+[[bestiary.fields]]
+  key = "kind"
+  label = "Kind"
+  type = "choice"
+  [[bestiary.fields.choices]]
+    value = "progenitor"
+    label = "Progenitor"
+    color = "#8b3a2b"
+  [[bestiary.fields.choices]]
+    value = "parasite"
+    label = "Parasite"
+    color = "#6b3a7a"
+  [[bestiary.fields.choices]]
+    value = "symbiont"
+    label = "Symbiont"
+    color = "#2b6b4a"
+  [[bestiary.fields.choices]]
+    value = "mimic"
+    label = "Mimic"
+    color = "#2b5d8b"
+  [[bestiary.fields.choices]]
+    value = "kin"
+    label = "Kin"
+    color = "#8a6a1f"
 
-enableSearch = true
-enableCodeCopy = true
+[[bestiary.fields]]
+  key = "habitat"
+  label = "Habitat"
+  type = "text"
 
-mainSections = ["posts"]
-# robots = ""
+[[bestiary.fields]]
+  key = "sightings"
+  label = "Sightings"
+  type = "links"
 
-[header]
-  layout = "hybrid" # basic, hamburger, hybrid or custom.
-  showTitle = true
-
-[footer]
-  showCopyright = true
-  showThemeAttribution = true
-  showAppearanceSwitcher = true
-  showScrollToTop = true
-
-[homepage]
-  layout = "profile" # valid options: page, profile, custom
-  showRecent = false
-
-[article]
-  showDate = false
-  showDateUpdated = true
-  showAuthor = true
-  showBreadcrumbs = true
-  showDraftLabel = true
-  showEdit = false
-  # editURL = "https://github.com/username/repo/"
-  editAppendPath = true
-  showHeadingAnchors = true
-  showPagination = true
-  invertPagination = true
-  showReadingTime = false
-  showTableOfContents = true
-  showTaxonomies = true
-  showWordCount = false
-  showScrollToTop = true
-  # sharingLinks = ["github", "twitter", "snapchat", "email", "steam"]
-  sharingLinks = ["twitter", "pinterest", "reddit"]
-
-[list]
-  showBreadcrumbs = true
-  showSummary = true
-  showTableOfContents = true
-  showTaxonomies = true
-  groupByYear = false
-  paginationWidth = 1
-
-[sitemap]
-  excludedKinds = ["taxonomy", "term"]
-
-[taxonomy]
-  showTermCount = true
-
-[fathomAnalytics]
-  # site = "ABC12345"
-  # domain = "llama.yoursite.com"
-
-[verification]
-  # google = ""
-  # bing = ""
-  # pinterest = ""
-  # yandex = ""
+[[bestiary.fields]]
+  key = "lastverified"
+  label = "Last verified"
+  type = "date"
