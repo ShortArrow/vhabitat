@@ -3,6 +3,7 @@ title: "Rust Playground"
 params:
   kind: mimic
   habitat: "Web"
+  lastsighted: 2026-10-28
   sightings:
     - label: "Playground"
       url: https://play.rust-lang.org/

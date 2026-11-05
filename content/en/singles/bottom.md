@@ -3,6 +3,7 @@ title: "bottom"
 params:
   kind: kin
   habitat: "Terminal"
+  lastsighted: 2026-11-04
   sightings:
     - label: "Official site"
       url: https://clementtsang.github.io/bottom/

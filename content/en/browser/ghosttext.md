@@ -3,6 +3,7 @@ title: "GhostText"
 params:
   kind: symbiont
   habitat: "Firefox, Chrome"
+  lastsighted: 2026-05-12
   sightings:
     - label: "GitHub repository"
       url: https://github.com/fregante/GhostText

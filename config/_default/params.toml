@@ -37,6 +37,6 @@
   type = "links"
 
 [[bestiary.fields]]
-  key = "lastverified"
-  label = "Last verified"
+  key = "lastsighted"
+  label = "Last sighted"
   type = "date"

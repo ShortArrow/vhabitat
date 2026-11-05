@@ -3,6 +3,7 @@ title: "Vimium C"
 params:
   kind: mimic
   habitat: "Firefox, Chrome"
+  lastsighted: 2025-04-14
   sightings:
     - label: "GitHub repository"
       url: https://github.com/gdh1995/vimium-c

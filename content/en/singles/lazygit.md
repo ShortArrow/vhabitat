@@ -3,6 +3,7 @@ title: "lazygit"
 params:
   kind: kin
   habitat: "Terminal"
+  lastsighted: 2026-11-03
   sightings:
     - label: "GitHub repository"
       url: https://github.com/jesseduffield/lazygit

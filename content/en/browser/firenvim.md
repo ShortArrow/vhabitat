@@ -3,6 +3,7 @@ title: "Firenvim"
 params:
   kind: parasite
   habitat: "Firefox, Chrome"
+  lastsighted: 2026-09-12
   sightings:
     - label: "GitHub repository"
       url: https://github.com/glacambre/firenvim

@@ -3,6 +3,7 @@ title: "lazydocker"
 params:
   kind: kin
   habitat: "Terminal"
+  lastsighted: 2026-04-19
   sightings:
     - label: "GitHub repository"
       url: https://github.com/jesseduffield/lazydocker
