@@ -2,4 +2,4 @@ module github.com/ShortArrow/vhabit
 
 go 1.22
 
-require github.com/ShortArrow/hugo-theme-bestiary v0.7.0 // indirect
+require github.com/ShortArrow/hugo-theme-bestiary v0.8.0 // indirect
