@@ -12,7 +12,8 @@ Workers の静的アセットは、アセットのディレクトリにある `_
 
 - `static/_headers` で、全ページに Content-Security-Policy を付ける。
   - `script-src` は、`'self'`、インラインスクリプトごとの `'sha256-…'`、`https://*.googletagmanager.com` とする。`'unsafe-inline'` は使わない。
-  - `connect-src` と `img-src` には、Google Analytics の送信先である `https://*.google-analytics.com`、`https://*.analytics.google.com`、`https://*.googletagmanager.com` を入れる。
+  - `connect-src` には、Google の CSP の手引き（developers.google.com/tag-platform/security/guides/csp）が広告機能なしの Google Analytics に挙げる `https://*.google-analytics.com`、`https://*.google.com`、`https://*.googletagmanager.com` を入れる。`*.google.com` は、gtag.js が `*.google-analytics.com` に送れなかったときの送り先である。
+  - `img-src` には、同じ手引きに従い `https://*.google-analytics.com` と `https://*.googletagmanager.com` を入れる。
   - `style-src` は `'self' 'unsafe-inline'` とする。
   - `object-src 'none'`、`base-uri 'self'`、`form-action 'self'`、`frame-ancestors 'none'` を付ける。
 - ハッシュは、Workers Builds と同じ `hugo --minify` の出力から取る。`tests/headers.sh` が同じビルドをして、ページが実行するスクリプトのうちポリシーが許さないものを、そのまま `script-src` に足せる形で示して失敗する。
@@ -32,4 +33,4 @@ Workers の静的アセットは、アセットのディレクトリにある `_
 ## 結果
 
 - テーマか Hugo の版を上げてインラインスクリプトの中身が変わると、`tests/headers.sh` が失敗する。示されたハッシュで `static/_headers` の `script-src` を書き換え、古いハッシュを消す。
-- Google Analytics の送信先が上の 3 つから外れると、計測が止まる。gtag.js は、送信に失敗すると `www.google.com` に送り直すが、これは許していない。
+- Google Analytics の送信先が上の 3 つから外れると、計測が止まる。Google Ads を Google Analytics につなぐときは、手引きの Ads の送信先も足す。

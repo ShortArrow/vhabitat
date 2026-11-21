@@ -26,7 +26,8 @@ directive() { printf '%s' "$csp" | tr ';' '\n' | sed -n "s/^ *$1 \(.*\)/ \1 /p";
 for d in "object-src 'none'" "base-uri 'self'" "frame-ancestors 'none'" "form-action 'self'"; do
   case " $(directive "${d%% *}")" in *" ${d#* } "*) ;; *) fail "the policy lacks $d" ;; esac
 done
-for origin in https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; do
+# The origins Google lists for Analytics without Ads features (developers.google.com/tag-platform/security/guides/csp).
+for origin in https://*.google-analytics.com https://*.google.com https://*.googletagmanager.com; do
   case $(directive connect-src) in *" $origin "*) ;; *) fail "connect-src lacks $origin, where Google Analytics sends its hits" ;; esac
 done
 
