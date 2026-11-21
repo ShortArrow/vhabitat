@@ -19,6 +19,8 @@ jobs:
       HUGO_SHA256: "4d84519b9f619e6d4c3fb45a50157abeabeb724f859c60605f44c23def6e1169"
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
     - name: Install Hugo
       run: |
         tarball="$RUNNER_TEMP/hugo.tar.gz"
