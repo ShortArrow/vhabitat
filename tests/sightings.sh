@@ -68,4 +68,9 @@ done
 [ -z "$(field sec/_index.md lastsighted)" ] || fail "a section's _index.md was dated"
 [ "$(field sec/bundled/index.md lastsighted)" = 2026-03-04 ] || fail "an entry in a page bundle was not redated: $(field sec/bundled/index.md lastsighted)"
 
+# With no page bundle, the bundle glob matches nothing and must not be read as a file.
+rm -r "$work/content/en/sec/bundled"
+GH_ANSWERS=$work/answers PATH="$work/bin:$PATH" sh "$work/scripts/sightings.sh" 2>"$work/stderr" || fail "the script failed without bundles: $(cat "$work/stderr")"
+grep -v '^skipped ' "$work/stderr" >&2 && fail "the script complained without bundles"
+
 echo ok
