@@ -1,0 +1,58 @@
+#!/bin/sh
+# Runs scripts/sightings.sh against fixture entries, with a stub gh that answers from fixture files,
+# and checks which entries it dates. Needs GNU sed, like the script. Exits non-zero on the first failed check.
+set -eu
+root=$(cd "$(dirname "$0")/.." && pwd)
+work=$(mktemp -d)
+trap 'rm -rf "$work"' EXIT
+
+fail() { echo "FAIL: $1" >&2; exit 1; }
+field() { sed -n "s/^  $2: //p" "$work/content/en/$1"; }
+
+mkdir -p "$work/scripts" "$work/bin" "$work/answers" "$work/content/en/sec"
+cp "$root/scripts/sightings.sh" "$work/scripts/"
+
+# The stub answers `gh api repos/<owner>/<repo>/commits...` with answers/<owner>_<repo>, and fails when there is none.
+cat >"$work/bin/gh" <<'EOF'
+#!/bin/sh
+repo=$(printf '%s' "$2" | sed 's#^repos/\([^/]*\)/\([^/]*\)/.*#\1_\2#')
+[ -f "$GH_ANSWERS/$repo" ] || exit 1
+cat "$GH_ANSWERS/$repo"
+EOF
+chmod +x "$work/bin/gh"
+
+entry() { # entry <path> <url> [lastsighted]
+  {
+    echo '---'
+    echo 'title: "Fixture"'
+    echo 'params:'
+    echo '  kind: kin'
+    [ -z "${3:-}" ] || echo "  lastsighted: $3"
+    echo '  sightings:'
+    echo '    - label: "GitHub repository"'
+    echo "      url: $2"
+    echo '---'
+  } >"$work/content/en/$1"
+}
+answer() { printf '%s\n' "$2" >"$work/answers/$1"; }
+
+entry sec/dated.md https://github.com/o/dated 2020-01-01
+answer o_dated 2026-05-06T07:08:09Z
+entry sec/undated.md https://github.com/o/undated
+answer o_undated 2026-02-03T00:00:00Z
+entry sec/offline.md https://github.com/o/offline 2020-01-01
+entry sec/elsewhere.md https://gitlab.com/o/elsewhere 2020-01-01
+answer o_elsewhere 2026-01-01T00:00:00Z
+entry sec/_index.md https://github.com/o/index
+answer o_index 2026-01-01T00:00:00Z
+
+GH_ANSWERS=$work/answers PATH="$work/bin:$PATH" sh "$work/scripts/sightings.sh" 2>"$work/stderr" || fail "the script failed: $(cat "$work/stderr")"
+
+[ "$(field sec/dated.md lastsighted)" = 2026-05-06 ] || fail "a dated entry was not redated: $(field sec/dated.md lastsighted)"
+[ "$(sed -n '5p' "$work/content/en/sec/undated.md")" = '  lastsighted: 2026-02-03' ] || fail "an undated entry got no date before its sightings"
+[ "$(field sec/offline.md lastsighted)" = 2020-01-01 ] || fail "an entry whose repository did not answer was changed"
+grep -q 'skipped o/offline' "$work/stderr" || fail "an unanswered repository was not reported"
+[ "$(field sec/elsewhere.md lastsighted)" = 2020-01-01 ] || fail "an entry without a GitHub repository was changed"
+[ -z "$(field sec/_index.md lastsighted)" ] || fail "a section's _index.md was dated"
+
+echo ok
