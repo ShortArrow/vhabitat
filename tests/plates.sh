@@ -15,6 +15,27 @@ find "$root/content" -name plate.svg >"$work/plates"
 # shellcheck disable=SC2046
 check $(cat "$work/plates") || fail "a plate is refused"
 
+# Every file in a page bundle is published as it is, and the theme picks the plate by resource name, which front matter
+# can give any file. So content holds only pages and files named plate.svg.
+strays() { find "$1" -type f ! -name '*.md' ! -name plate.svg; }
+[ -z "$(strays "$root/content")" ] || fail "content holds files other than pages and plates: $(strays "$root/content")"
+mkdir -p "$work/content/en/sec/entry"
+: >"$work/content/en/sec/entry/index.md"
+: >"$work/content/en/sec/entry/drawing.svg"
+: >"$work/content/en/sec/entry/Plate.SVG"
+[ "$(strays "$work/content" | wc -l)" -eq 2 ] || fail "stray files went unnoticed: $(strays "$work/content")"
+
+# What the theme inlines is what counts, so check the plates in the built pages too.
+hugo --panicOnWarning -s "$root" -d "$work/site" >/dev/null
+# shellcheck disable=SC2046
+inlined=$(check --pages $(find "$work/site" -name '*.html')) || fail "a page inlines a refused plate"
+[ "$inlined" -gt 0 ] || fail "no inlined plate was found in the built pages"
+plate() { printf '<html><body><figure class="bestiary-plate">\n  %s\n  <figcaption>A caption</figcaption>\n</figure></body></html>\n' "$1" >"$work/page.html"; }
+plate '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"><path d="M0 0" stroke="currentColor"/></svg>'
+[ "$(check --pages "$work/page.html")" = 1 ] || fail "the checker refused a page with a plain plate"
+plate '<svg xmlns="http://www.w3.org/2000/svg"><script>alert(1)</script></svg>'
+if check --pages "$work/page.html" >/dev/null 2>&1; then fail "the checker accepted a page that inlines a script"; fi
+
 ok='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" fill="none" stroke="currentColor">'
 refuse() { # refuse <name> <svg>
   printf '%s\n' "$2" >"$work/$1.svg"

@@ -1,7 +1,9 @@
 """Refuse a plate.svg that could do more than draw once the theme inlines it into a page.
 
 Usage: python3 -I tests/plate_check.py <plate.svg>...
-Exits 1 and names each refused file and the first reason, or exits 0 when every file is a plain drawing.
+       python3 -I tests/plate_check.py --pages <built page.html>...
+Exits 1 and names each refused file and the first reason, or exits 0 when every plate is a plain drawing.
+With --pages it checks the plates the theme inlined into built pages, and prints how many it found.
 
 A plate is accepted only when it is UTF-8 with no byte order mark or NUL, the way the page that inlines its bytes is
 read, and parses as XML with no DOCTYPE, comment, processing instruction or CDATA section, since the page is parsed
@@ -10,6 +12,7 @@ attribute must be on the lists below, in the SVG namespace, and fill and stroke 
 Text is allowed only in title and desc.
 """
 
+import re
 import sys
 from xml.parsers import expat
 
@@ -82,15 +85,34 @@ def check(data):
     parser.Parse(data, True)
 
 
-def main(paths):
-    refused = False
-    for path in paths:
-        try:
-            with open(path, "rb") as f:
-                check(f.read())
-        except (Refused, expat.ExpatError) as e:
-            print(f"{path}: {e}", file=sys.stderr)
-            refused = True
+FIGURE = re.compile(rb'<figure class="bestiary-plate">(.*?)</figure>', re.DOTALL)
+CAPTION = re.compile(rb"<figcaption>[^<]*</figcaption>\s*$")
+
+
+def inlined_plates(page):
+    """The plates the theme inlined into a built page: each bestiary-plate figure without its caption.
+
+    The theme escapes the caption, so it holds no "<"; anything else left in the figure is the plate's bytes,
+    and a plate that ends the figure early leaves a fragment that does not parse.
+    """
+    return [CAPTION.sub(b"", inner).strip() for inner in FIGURE.findall(page)]
+
+
+def main(args):
+    pages = args[:1] == ["--pages"]
+    refused, plates = False, 0
+    for path in args[1:] if pages else args:
+        with open(path, "rb") as f:
+            data = f.read()
+        for plate in inlined_plates(data) if pages else [data]:
+            plates += 1
+            try:
+                check(plate)
+            except (Refused, expat.ExpatError) as e:
+                print(f"{path}: {e}", file=sys.stderr)
+                refused = True
+    if pages:
+        sys.stdout.buffer.write(b"%d\n" % plates)
     return 1 if refused else 0
 
 
