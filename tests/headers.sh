@@ -19,4 +19,37 @@ expect Referrer-Policy strict-origin-when-cross-origin
 expect X-Frame-Options DENY
 expect Permissions-Policy 'camera=(), microphone=(), geolocation=()'
 
+csp=$(header Content-Security-Policy)
+[ -n "$csp" ] || fail "every page should send a Content-Security-Policy"
+# directive <name>: the sources the policy lists for one directive, space-separated with a space at each end.
+directive() { printf '%s' "$csp" | tr ';' '\n' | sed -n "s/^ *$1 \(.*\)/ \1 /p"; }
+for d in "object-src 'none'" "base-uri 'self'" "frame-ancestors 'none'" "form-action 'self'"; do
+  case " $(directive "${d%% *}")" in *" ${d#* } "*) ;; *) fail "the policy lacks $d" ;; esac
+done
+for origin in https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; do
+  case $(directive connect-src) in *" $origin "*) ;; *) fail "connect-src lacks $origin, where Google Analytics sends its hits" ;; esac
+done
+
+# Every script a page runs must be allowed: inline ones by the hash of their text, external ones by their origin.
+script_src=$(directive script-src)
+missing=$(perl -e '
+  use Digest::SHA qw(sha256_base64);
+  my ($allowed, %missing) = (shift);
+  for my $page (@ARGV) {
+    open my $fh, "<:raw", $page or die "$page: $!";
+    my $html = do { local $/; <$fh> };
+    while ($html =~ m{<script\b([^>]*)>(.*?)</script>}gs) {
+      my ($attributes, $text) = ($1, $2);
+      my $source;
+      if ($attributes =~ m{\bsrc=["\x27]?(https?://[^/"\x27 >]+)}) { $source = $1 }
+      elsif ($attributes =~ m{\bsrc=}) { $source = "\x27self\x27" }
+      else { my $h = sha256_base64($text); $h .= "=" x (-length($h) % 4); $source = "\x27sha256-$h\x27" }
+      my $wildcard = $source =~ s{^(https?://)[^.]+(\..+)$}{$1*$2}r;
+      $missing{$source} = 1 unless index($allowed, " $source ") >= 0 || index($allowed, " $wildcard ") >= 0;
+    }
+  }
+  print join(" ", sort keys %missing);
+' "$script_src" $(find "$out" -name '*.html'))
+[ -z "$missing" ] || fail "script-src does not allow scripts the pages run: $missing"
+
 echo ok
