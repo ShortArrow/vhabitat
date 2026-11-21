@@ -29,4 +29,4 @@
 
 - `main` へ直接 push することはやめる。
 - ローカルで `wrangler dev` や `wrangler deploy`、`tests/run.sh` を使うには、`HUGO_VERSION` と同じ版の Hugo が PATH に要る。
-- `HUGO_VERSION` を変えるときは、`.github/workflows/site.yml` の版も同じに変える。
+- `HUGO_VERSION` を変えるときは、`.github/workflows/site.yml` の版も同じに変え、`HUGO_SHA256` をその版のリリースにある `hugo_<版>_checksums.txt` の linux-amd64 の値に変える。ビルド検査は、ハッシュが合わない Hugo を使わずに失敗する。
