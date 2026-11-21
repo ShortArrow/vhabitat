@@ -10,7 +10,7 @@
 
 - サイトは、vhabitat.shortarrow.jp で `public/` を静的アセットとして配る Worker とする。Workers Builds をリポジトリにつなぎ、`main` を公開し、ほかのブランチは preview としてビルドする。
 - ビルドコマンドは `wrangler.jsonc` の `build.command` に置き、`wrangler deploy` がビルドから公開までを行う。Hugo の版は Workers Builds の環境変数 `HUGO_VERSION` で指定する。
-- GitHub Actions は、Markdown のリンク検査と、`tests/run.sh` によるサイトのビルド検査と、`tests/sightings.sh` による `scripts/sightings.sh` の検査だけを行う。ビルド検査の Hugo は `HUGO_VERSION` と同じ版を使う。
+- GitHub Actions は、Markdown のリンク検査と、`tests/run.sh` によるサイトのビルド検査と、`tests/sightings.sh` による `scripts/sightings.sh` の検査と、`tests/headers.sh` による応答ヘッダーの検査だけを行う。ビルド検査の Hugo は `HUGO_VERSION` と同じ版を使う。
 - `main` は両方の検査が通るプルリクエストでしか変えず、これをルールセットで強制する。
 
 ## 理由
