@@ -30,3 +30,4 @@ jobs:
         echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
     - run: sh tests/run.sh
     - run: sh tests/sightings.sh
+    - run: sh tests/headers.sh
