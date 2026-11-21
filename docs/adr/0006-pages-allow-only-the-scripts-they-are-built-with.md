@@ -30,6 +30,9 @@ Workers の静的アセットは、アセットのディレクトリにある `_
   - `object-src 'none'`、`base-uri 'self'`、`form-action 'self'`、`frame-ancestors 'none'` を付ける。
 - ハッシュは、Workers Builds と同じ `hugo --minify` の出力から取る。`tests/headers.sh` が同じビルドをして、ページが実行するスクリプトのうちポリシーが許さないものを、そのまま `script-src` に足せる形で示して失敗する。
 - 図版は `tests/plate_check.py` で検査し、CI で描くこと以外ができる図版を落とす。
+  - 検査するのは、`content/` の `plate.svg` と、ビルドしたページにテーマが実際に埋め込んだ図版の両方である。テーマは `.Resources.GetMatch "plate.svg"` で図版を選び、この照合は大文字小文字を区別せず、front matter の `name` で別のファイルにも当たるためである。
+  - `content/` に置けるファイルは、`.md` と `plate.svg` だけとする。ページバンドルのほかのファイルはそのまま配られ、そこから読み込むスクリプトは CSP の `'self'` で動いてしまうためである。
+  - 図版は BOM と NUL のない UTF-8 に限る。テーマは図版のバイト列を UTF-8 のページにそのまま埋め込むので、ほかの文字コードとして読むと、検査の見ない `<script>` を書けてしまう。
   - XML として解析し、DOCTYPE、コメント、処理命令、CDATA を拒む。ページは HTML として解析されるので、これらは XML と終わる位置が変わる。
   - 要素と属性は許可した一覧のものだけを、SVG の名前空間で受け付ける。`fill` と `stroke` は `none` か `currentColor` に限る（ADR-0005）。文字は `title` と `desc` の中だけに許す。
 
@@ -58,4 +61,5 @@ Workers の静的アセットは、アセットのディレクトリにある `_
 - テーマか Hugo の版を上げてインラインスクリプトの中身が変わると、`tests/headers.sh` が失敗する。示されたハッシュで `static/_headers` の `script-src` を書き換え、古いハッシュを消す。
 - Google Analytics の送信先が上の 3 つから外れると、計測が止まる。Google Ads を Google Analytics につなぐときは、手引きの Ads の送信先も足す。
 - 本番の各ページで、Cloudflare のボット検出のスクリプトが CSP に止められ、ブラウザのコンソールにエラーが 1 件出る。
+- 項目に図版以外の画像やファイルを添えるときは、`tests/plates.sh` の許すファイルの決まりと、この決定を見直す。
 - 図版に新しい要素や属性を使うときは、`tests/plate_check.py` の一覧に足す。足す前に、それがスクリプトの実行や外部の読み込みにつながらないかを確かめる。
