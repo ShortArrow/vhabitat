@@ -45,6 +45,12 @@ entry sec/elsewhere.md https://gitlab.com/o/elsewhere 2020-01-01
 answer o_elsewhere 2026-01-01T00:00:00Z
 entry sec/bundled/index.md https://github.com/o/bundled 2020-01-01
 answer o_bundled 2026-03-04T00:00:00Z
+entry sec/empty.md https://github.com/o/empty 2020-01-01
+answer o_empty null
+entry sec/odd.md https://github.com/o/odd 2020-01-01
+answer o_odd '2026/01/02 & more'
+entry sec/lines.md https://github.com/o/lines 2020-01-01
+answer o_lines "$(printf '2026-01-02\n2026-01-03')"
 entry sec/_index.md https://github.com/o/index
 answer o_index 2026-01-01T00:00:00Z
 
@@ -54,6 +60,10 @@ GH_ANSWERS=$work/answers PATH="$work/bin:$PATH" sh "$work/scripts/sightings.sh" 
 [ "$(sed -n '5p' "$work/content/en/sec/undated.md")" = '  lastsighted: 2026-02-03' ] || fail "an undated entry got no date before its sightings"
 [ "$(field sec/offline.md lastsighted)" = 2020-01-01 ] || fail "an entry whose repository did not answer was changed"
 grep -q 'skipped o/offline' "$work/stderr" || fail "an unanswered repository was not reported"
+for odd in empty odd lines; do
+  [ "$(field sec/$odd.md lastsighted)" = 2020-01-01 ] || fail "an entry whose repository answered no date was changed: $(field sec/$odd.md lastsighted)"
+  grep -q "skipped o/$odd" "$work/stderr" || fail "a repository that answered no date was not reported"
+done
 [ "$(field sec/elsewhere.md lastsighted)" = 2020-01-01 ] || fail "an entry without a GitHub repository was changed"
 [ -z "$(field sec/_index.md lastsighted)" ] || fail "a section's _index.md was dated"
 [ "$(field sec/bundled/index.md lastsighted)" = 2026-03-04 ] || fail "an entry in a page bundle was not redated: $(field sec/bundled/index.md lastsighted)"

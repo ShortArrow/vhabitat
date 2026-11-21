@@ -20,6 +20,13 @@ for entry in "$root"/content/en/*/*.md "$root"/content/en/*/*/index.md; do
     continue
   fi
   sighted=$(printf '%s' "$sighted" | cut -c1-10)
+  case $sighted in
+  [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]) ;;
+  *)
+    echo "skipped $repo: the API answered no date" >&2
+    continue
+    ;;
+  esac
   if grep -q '^  lastsighted:' "$entry"; then
     sed -i "s/^  lastsighted: .*/  lastsighted: $sighted/" "$entry"
   else
