@@ -1,0 +1,43 @@
+#!/bin/sh
+# Checks every entry's plate.svg with tests/plate_check.py, and checks that the checker refuses SVGs that could run script
+# or reach outside the drawing when the theme inlines them into a page. Needs python3 (or $PYTHON). Exits non-zero on the first failed check.
+set -eu
+root=$(cd "$(dirname "$0")/.." && pwd)
+work=$(mktemp -d)
+trap 'rm -rf "$work"' EXIT
+python=${PYTHON:-python3}
+check() { "$python" -I "$root/tests/plate_check.py" "$@"; }
+
+fail() { echo "FAIL: $1" >&2; exit 1; }
+
+find "$root/content" -name plate.svg >"$work/plates"
+[ -s "$work/plates" ] || fail "no plate.svg was found"
+# shellcheck disable=SC2046
+check $(cat "$work/plates") || fail "a plate is refused"
+
+ok='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" fill="none" stroke="currentColor">'
+refuse() { # refuse <name> <svg>
+  printf '%s\n' "$2" >"$work/$1.svg"
+  if check "$work/$1.svg" 2>/dev/null; then fail "the checker accepted $1"; fi
+}
+
+refuse script "$ok<script>alert(1)</script></svg>"
+refuse handler "$ok<path d=\"M0 0\" onload=\"alert(1)\"/></svg>"
+refuse handler-upper "$ok<path d=\"M0 0\" ONLOAD=\"alert(1)\"/></svg>"
+refuse foreign-object "$ok<foreignObject><div xmlns=\"http://www.w3.org/1999/xhtml\">x</div></foreignObject></svg>"
+refuse use-href "$ok<use href=\"data:image/svg+xml,x#a\"/></svg>"
+refuse xlink-href '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1 1"><a xlink:href="javascript:alert(1)"><path d="M0 0"/></a></svg>'
+refuse html-script "$ok<h:script xmlns:h=\"http://www.w3.org/1999/xhtml\">alert(1)</h:script></svg>"
+refuse style-element "$ok<style>path{fill:url(https://example.com/x)}</style></svg>"
+refuse style-attribute "$ok<path d=\"M0 0\" style=\"fill:red\"/></svg>"
+refuse paint-url "$ok<path d=\"M0 0\" fill=\"url(https://example.com/x.svg#a)\"/></svg>"
+refuse paint-colour "$ok<path d=\"M0 0\" fill=\"#ff0000\"/></svg>"
+refuse entity '<!DOCTYPE svg [<!ENTITY e "x">]><svg xmlns="http://www.w3.org/2000/svg"><title>&e;</title></svg>'
+refuse comment "$ok<!--><script>alert(1)</script>--></svg>"
+refuse processing-instruction "$ok<?x a><script>alert(1)</script>?></svg>"
+refuse cdata "$ok<title><![CDATA[x]]></title></svg>"
+refuse stray-text "${ok}x<path d=\"M0 0\"/></svg>"
+refuse not-svg '<html xmlns="http://www.w3.org/1999/xhtml"><script>alert(1)</script></html>'
+refuse not-xml "$ok<path d=\"M0 0\"></svg>"
+
+echo ok

@@ -31,3 +31,4 @@ jobs:
     - run: sh tests/run.sh
     - run: sh tests/sightings.sh
     - run: sh tests/headers.sh
+    - run: sh tests/plates.sh
