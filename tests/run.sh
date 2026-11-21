@@ -10,6 +10,8 @@ fail() { echo "FAIL: $1" >&2; exit 1; }
 has() { grep -q -- "$2" "$1" || fail "$1 lacks $2"; }
 sections() { grep -o 'class="bestiary-index-section"[^>]*>[^<]*<a [^>]*>[^<]*' "$1" | sed 's/.*>//' | paste -sd, -; }
 
+# Without the requirement Hugo fetches the theme's latest version, so a go.mod that lost it would still build (ADR-0003 pins it).
+grep -q '^require github\.com/ShortArrow/hugo-theme-bestiary v[0-9]' "$root/go.mod" || fail "go.mod does not pin hugo-theme-bestiary"
 hugo --panicOnWarning -s "$root" -d "$out" >/dev/null
 awk -f "$root/tests/seal-contrast.awk" "$root/config/_default/params.toml" >/dev/null || fail "a kind's seal is too faint against the paper, by day or by night: $(awk -f "$root/tests/seal-contrast.awk" "$root/config/_default/params.toml")"
 home=$out/index.html
