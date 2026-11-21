@@ -9,7 +9,7 @@ trap 'rm -rf "$work"' EXIT
 fail() { echo "FAIL: $1" >&2; exit 1; }
 field() { sed -n "s/^  $2: //p" "$work/content/en/$1"; }
 
-mkdir -p "$work/scripts" "$work/bin" "$work/answers" "$work/content/en/sec"
+mkdir -p "$work/scripts" "$work/bin" "$work/answers" "$work/content/en/sec/bundled"
 cp "$root/scripts/sightings.sh" "$work/scripts/"
 
 # The stub answers `gh api repos/<owner>/<repo>/commits...` with answers/<owner>_<repo>, and fails when there is none.
@@ -43,6 +43,8 @@ answer o_undated 2026-02-03T00:00:00Z
 entry sec/offline.md https://github.com/o/offline 2020-01-01
 entry sec/elsewhere.md https://gitlab.com/o/elsewhere 2020-01-01
 answer o_elsewhere 2026-01-01T00:00:00Z
+entry sec/bundled/index.md https://github.com/o/bundled 2020-01-01
+answer o_bundled 2026-03-04T00:00:00Z
 entry sec/_index.md https://github.com/o/index
 answer o_index 2026-01-01T00:00:00Z
 
@@ -54,5 +56,6 @@ GH_ANSWERS=$work/answers PATH="$work/bin:$PATH" sh "$work/scripts/sightings.sh" 
 grep -q 'skipped o/offline' "$work/stderr" || fail "an unanswered repository was not reported"
 [ "$(field sec/elsewhere.md lastsighted)" = 2020-01-01 ] || fail "an entry without a GitHub repository was changed"
 [ -z "$(field sec/_index.md lastsighted)" ] || fail "a section's _index.md was dated"
+[ "$(field sec/bundled/index.md lastsighted)" = 2026-03-04 ] || fail "an entry in a page bundle was not redated: $(field sec/bundled/index.md lastsighted)"
 
 echo ok

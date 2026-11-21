@@ -10,7 +10,8 @@ repository() {
     sed -n 's#^https://\(www\.\)\{0,1\}github\.com/\([^/]*/[^/]*\).*#\2#p'
 }
 
-for entry in "$root"/content/en/*/*.md; do
+for entry in "$root"/content/en/*/*.md "$root"/content/en/*/*/index.md; do
+  [ -f "$entry" ] || continue
   [ "$(basename "$entry")" = _index.md ] && continue
   repo=$(repository "$entry")
   [ -n "$repo" ] || continue
