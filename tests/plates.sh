@@ -40,4 +40,16 @@ refuse stray-text "${ok}x<path d=\"M0 0\"/></svg>"
 refuse not-svg '<html xmlns="http://www.w3.org/1999/xhtml"><script>alert(1)</script></html>'
 refuse not-xml "$ok<path d=\"M0 0\"></svg>"
 
+# The theme inlines the file's bytes into a UTF-8 page, so a plate the checker reads in any other encoding
+# can spell markup the checker never sees. These title characters are "<script>" when their UTF-16LE bytes are read as UTF-8.
+printf '%s\n' "$ok<title>猼牣灩㹴污牥⡴⤱⼼捳楲瑰‾</title></svg>" | iconv -f UTF-8 -t UTF-16 >"$work/utf-16.svg"
+if check "$work/utf-16.svg" 2>/dev/null; then fail "the checker accepted utf-16"; fi
+refuse declared-latin-1 "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>$ok</svg>"
+printf '\357\273\277%s\n' "$ok</svg>" >"$work/bom.svg"
+if check "$work/bom.svg" 2>/dev/null; then fail "the checker accepted a byte order mark"; fi
+printf '%s\000\n' "$ok</svg>" >"$work/nul.svg"
+if check "$work/nul.svg" 2>/dev/null; then fail "the checker accepted a NUL byte"; fi
+printf '%s\377\n' "$ok</svg>" >"$work/not-utf-8.svg"
+if check "$work/not-utf-8.svg" 2>/dev/null; then fail "the checker accepted bytes that are not UTF-8"; fi
+
 echo ok

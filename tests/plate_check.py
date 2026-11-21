@@ -3,8 +3,9 @@
 Usage: python3 -I tests/plate_check.py <plate.svg>...
 Exits 1 and names each refused file and the first reason, or exits 0 when every file is a plain drawing.
 
-A plate is accepted only when it parses as XML with no DOCTYPE, comment, processing instruction or CDATA section,
-since the page is parsed as HTML and those constructs end in different places there than in XML. Every element and
+A plate is accepted only when it is UTF-8 with no byte order mark or NUL, the way the page that inlines its bytes is
+read, and parses as XML with no DOCTYPE, comment, processing instruction or CDATA section, since the page is parsed
+as HTML and those constructs end in different places there than in XML. Every element and
 attribute must be on the lists below, in the SVG namespace, and fill and stroke are none or currentColor (ADR-0005).
 Text is allowed only in title and desc.
 """
@@ -36,9 +37,19 @@ def refuse(what):
 
 
 def check(data):
-    """Raise Refused or expat.ExpatError unless data is a plain SVG drawing."""
-    parser = expat.ParserCreate(namespace_separator=" ")
+    """Raise Refused or expat.ExpatError unless data is a plain SVG drawing in UTF-8."""
+    if data.startswith(b"\xef\xbb\xbf") or b"\0" in data:
+        raise Refused("a byte order mark or NUL byte")
+    try:
+        data.decode("utf-8")
+    except UnicodeDecodeError as e:
+        raise Refused(f"bytes that are not UTF-8 ({e.reason})")
+    parser = expat.ParserCreate(encoding="UTF-8", namespace_separator=" ")
     open_elements = []
+
+    def declaration(_version, encoding, _standalone):
+        if encoding is not None and encoding.upper() not in ("UTF-8", "UTF8"):
+            raise Refused(f"encoding {encoding!r}")
 
     def start(name, attributes):
         namespace, _, local = name.rpartition(" ")
@@ -60,6 +71,7 @@ def check(data):
         if data.strip() and (not open_elements or open_elements[-1] not in TEXT_ELEMENTS):
             raise Refused(f"text in {open_elements[-1] if open_elements else 'the document'}")
 
+    parser.XmlDeclHandler = declaration
     parser.StartElementHandler = start
     parser.EndElementHandler = end
     parser.CharacterDataHandler = text
