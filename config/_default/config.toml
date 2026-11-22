@@ -4,7 +4,6 @@ baseURL = "https://vhabitat.shortarrow.jp/"
 locale = "en"
 
 DefaultContentLanguage = "en"
-defaultContetLanguageInSubdir = true
 hasCJKLanguage = true
 
 enableRobotsTXT = true

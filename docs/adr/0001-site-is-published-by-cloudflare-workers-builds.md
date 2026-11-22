@@ -10,7 +10,7 @@
 
 - サイトは、vhabitat.shortarrow.jp で `public/` を静的アセットとして配る Worker とする。Workers Builds をリポジトリにつなぎ、`main` を公開し、ほかのブランチは preview としてビルドする。
 - ビルドコマンドは `wrangler.jsonc` の `build.command` に置き、`wrangler deploy` がビルドから公開までを行う。Hugo の版は Workers Builds の環境変数 `HUGO_VERSION` で指定する。
-- GitHub Actions は、Markdown のリンク検査と、`tests/run.sh` によるサイトのビルド検査だけを行う。ビルド検査の Hugo は `HUGO_VERSION` と同じ版を使う。
+- GitHub Actions は、Markdown のリンク検査と、`tests/run.sh` によるサイトのビルド検査と、`tests/sightings.sh` による `scripts/sightings.sh` の検査と、`tests/headers.sh` による応答ヘッダーの検査と、`tests/plates.sh` による図版の検査だけを行う。ビルド検査の Hugo は `HUGO_VERSION` と同じ版を使う。
 - `main` は両方の検査が通るプルリクエストでしか変えず、これをルールセットで強制する。
 
 ## 理由
@@ -29,4 +29,4 @@
 
 - `main` へ直接 push することはやめる。
 - ローカルで `wrangler dev` や `wrangler deploy`、`tests/run.sh` を使うには、`HUGO_VERSION` と同じ版の Hugo が PATH に要る。
-- `HUGO_VERSION` を変えるときは、`.github/workflows/site.yml` の版も同じに変える。
+- `HUGO_VERSION` を変えるときは、`.github/workflows/site.yml` の版も同じに変え、`HUGO_SHA256` をその版のリリースにある `hugo_<版>_checksums.txt` の linux-amd64 の値に変える。ビルド検査は、ハッシュが合わない Hugo を使わずに失敗する。
