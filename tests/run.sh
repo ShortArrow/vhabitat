@@ -38,5 +38,6 @@ grep -A2 'class="bestiary-field-label">Last sighted<' "$out/browser/firenvim/ind
 has "$out/kind/index.html" 'href="/kind/symbiont/"'
 has "$out/browser/firenvim/index.html" '<a href="https://github.com/glacambre/firenvim">GitHub repository</a>'
 has "$out/playgrouds/index.html" 'url=https://vhabitat.shortarrow.jp/playgrounds/'
+has "$out/privacy/index.html" 'url=https://vhabitat.shortarrow.jp/privacypolicy/'
 
 echo ok
