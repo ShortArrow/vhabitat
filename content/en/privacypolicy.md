@@ -4,13 +4,15 @@ aliases: ["/privacy/"]
 build:
   list: never
 ---
-Last updated: November 5, 2026
+Last updated: November 22, 2026
 
 VHabitat is a static website. It has no accounts, no comments and no forms, and it does not ask you for personal information.
 
 ## Analytics
 
 The site uses Google Analytics 4 to count visits and see which pages are read. When a page loads, Google Analytics sets cookies and sends Google information such as the page address, the referring page, your browser and device, and an approximate location derived from your IP address. The data is used only to understand how the site is used. Google handles it under the [Google Privacy Policy](https://policies.google.com/privacy). You can stop it with your browser's tracking protection or the [Google Analytics opt-out add-on](https://tools.google.com/dlpage/gaoptout).
+
+The site also uses Cloudflare Web Analytics to measure how fast pages load. Cloudflare adds its script to the pages it serves, and the script reports timing measurements and the page address. Cloudflare states that Web Analytics does not collect or use visitors' personal data ([About](https://developers.cloudflare.com/web-analytics/about/)). The script sets no cookies and stores nothing else in your browser, and Vitals Explorer, the part of Web Analytics that reports Core Web Vitals, does not fingerprint you by your IP address or browser ([Core Web Vitals](https://developers.cloudflare.com/web-analytics/data-metrics/core-web-vitals/)). Cloudflare does not track individual visitors across the sites it serves ([Data origin and collection](https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/)).
 
 ## Hosting
 
