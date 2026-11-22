@@ -20,7 +20,7 @@ home=$out/index.html
 has "$home" 'Fantastic Vimmer Software and Where to Find Them'
 grep -q '<link rel="icon" type="image/svg+xml" href="/favicon\.[0-9a-f]*\.svg"' "$home" || fail "home links no favicon"
 has "$home" 'googletagmanager.com/gtag/js?id=G-8HP6ECSQKQ'
-grep -A3 '<footer' "$home" | grep -q 'href="/privacypolicy/">Privacy policy</a>' || fail "home has no footer link to the privacy policy"
+grep -A3 '<footer' "$home" | grep -q 'href="/privacy/">Privacy policy</a>' || fail "home has no footer link to the privacy policy"
 grep -A6 '<footer' "$home" | grep -q 'href="/kind/">Kinds</a>' || fail "home has no footer link to the kinds"
 
 for page in "$out"/*/*/index.html; do
@@ -38,10 +38,11 @@ grep -A2 'class="bestiary-field-label">Last sighted<' "$out/browser/firenvim/ind
 has "$out/kind/index.html" 'href="/kind/symbiont/"'
 has "$out/browser/firenvim/index.html" '<a href="https://github.com/glacambre/firenvim">GitHub repository</a>'
 has "$out/playgrouds/index.html" 'url=https://vhabitat.shortarrow.jp/playgrounds/'
-has "$out/privacy/index.html" 'url=https://vhabitat.shortarrow.jp/privacypolicy/'
 # Every measurement the page runs, including the beacon Cloudflare injects, is named in the privacy policy.
 for measurement in 'Google Analytics' 'Cloudflare Web Analytics'; do
-  has "$out/privacypolicy/index.html" "$measurement"
+  has "$out/privacy/index.html" "$measurement"
 done
+# Links and search results from before /privacy/ became the address still reach the page.
+has "$out/privacypolicy/index.html" 'url=https://vhabitat.shortarrow.jp/privacy/'
 
 echo ok

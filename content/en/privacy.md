@@ -1,6 +1,6 @@
 ---
 title: "Privacy policy"
-aliases: ["/privacy/"]
+aliases: ["/privacypolicy/"]
 build:
   list: never
 ---
