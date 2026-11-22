@@ -26,7 +26,7 @@ Workers の静的アセットは、アセットのディレクトリにある `_
 - `static/_headers` で、全ページに Content-Security-Policy を付ける。
   - `script-src` は、`'self'`、インラインスクリプトごとの `'sha256-…'`、`https://*.googletagmanager.com`、`https://static.cloudflareinsights.com` とする。`'unsafe-inline'` は使わない。
   - `connect-src` には、Google の CSP の手引き（developers.google.com/tag-platform/security/guides/csp）が広告機能なしの Google Analytics に挙げる `https://*.google-analytics.com`、`https://*.google.com`、`https://*.googletagmanager.com` を入れる。`*.google.com` は、gtag.js が `*.google-analytics.com` に送れなかったときの送り先である。
-  - `script-src` の `https://static.cloudflareinsights.com` と `connect-src` の `https://cloudflareinsights.com` は、Cloudflare の CSP の文書（developers.cloudflare.com/fundamentals/reference/policies-compliances/content-security-policies/）が Web Analytics に挙げる送り先である。プロキシしたサイトでは、ビーコンは同じドメインの `/cdn-cgi/rum` に送るので、`'self'` で足りる。`cloudflareinsights.com` は、文書のとおりに足しておく。
+  - `script-src` の `https://static.cloudflareinsights.com` は、Cloudflare Web Analytics のビーコンの配り元である。ビーコンの送り先は `connect-src` に足さない。Web Analytics の FAQ（developers.cloudflare.com/web-analytics/faq/）によると、Cloudflare が自動で差し込んだビーコンは同じドメインの `/cdn-cgi/rum` に送るので、`'self'` で足りる。`https://cloudflareinsights.com` が要るのは、ビーコンを手で埋め込んだときだけである。
   - `img-src` には、同じ手引きに従い `https://*.google-analytics.com` と `https://*.googletagmanager.com` を入れる。
   - `style-src` は `'self' 'unsafe-inline'` とする。
   - `object-src 'none'`、`base-uri 'self'`、`form-action 'self'`、`frame-ancestors 'none'` を付ける。
@@ -47,7 +47,7 @@ Workers の静的アセットは、アセットのディレクトリにある `_
 - インラインスクリプトの中身は全ページで同じ 5 つなので、ハッシュは 5 つで足りる。
 - `style` 属性の値はページごと、印章ごとに違い、ハッシュで並べきれない。スタイルの差し込みはスクリプトほどの害がないので、`'unsafe-inline'` を許す。
 - Cloudflare Web Analytics のビーコンは許す。
-  - ビーコンを配る `static.cloudflareinsights.com` も、送り先の `cloudflareinsights.com` も、サイトを配信している Cloudflare のものである。Cloudflare はもともと全ページのバイト列を配っており、書き換えることもできる。許しても、信頼する相手は増えない。
+  - ビーコンを配る `static.cloudflareinsights.com` は、サイトを配信している Cloudflare のものである。Cloudflare はもともと全ページのバイト列を配っており、書き換えることもできる。許しても、信頼する相手は増えない。
   - 許さないと、Cloudflare Web Analytics でページの読み込みの速さが測れない。
 - CSP の代償は小さい。
   - 本番では、Cloudflare が Bot Fight Mode のボット検出（JavaScript Detections）のインラインスクリプトを差し込む。中身はリクエストごとに変わるのでハッシュで許せず、CSP で止まる。Cloudflare の文書では、この判定の結果を遮断に使うには Enterprise Bot Management の契約と WAF の規則が要り、判定が否でもそれだけでは遮断されない。Bot Fight Mode の判定がこの結果をどれだけ使うかは、文書にない（未規定）。
@@ -66,7 +66,7 @@ Workers の静的アセットは、アセットのディレクトリにある `_
 - テーマか Hugo の版を上げてインラインスクリプトの中身が変わると、`tests/headers.sh` が失敗する。示されたハッシュで `static/_headers` の `script-src` を書き換え、古いハッシュを消す。
 - Google Analytics の送信先が上の 3 つから外れると、計測が止まる。Google Ads を Google Analytics につなぐときは、手引きの Ads の送信先も足す。
 - 本番の各ページで、Cloudflare のボット検出のスクリプトが CSP に止められ、ブラウザのコンソールにエラーが 1 件出る。
-- Cloudflare が差し込むスクリプトは、ビルドの出力からは検査できない。`tests/headers.sh` は、Web Analytics の 2 つの送り先がポリシーにあることだけを確かめる。Cloudflare の機能を新しく有効にするときは、本番のページでポリシーの違反が出ないかを確かめ、要るなら送り先を足す。
+- Cloudflare が差し込むスクリプトは、ビルドの出力からは検査できない。`tests/headers.sh` は、ビーコンの配り元が `script-src` にあり、`connect-src` が `'self'` を許し、手で埋め込んだときの送り先 `https://cloudflareinsights.com` を許していないことだけを確かめる。Cloudflare の機能を新しく有効にするときは、本番のページでポリシーの違反が出ないかを確かめ、要るなら送り先を足す。
 - ページが測るもの（Google Analytics と Cloudflare Web Analytics）は、プライバシーポリシーに書く。`tests/run.sh` が、その名前がポリシーのページにあることを確かめる。
 - 項目に図版以外の画像やファイルを添えるときは、`tests/plates.sh` の許すファイルの決まりと、この決定を見直す。
 - 図版に新しい要素や属性を使うときは、`tests/plate_check.py` の一覧に足す。足す前に、それがスクリプトの実行や外部の読み込みにつながらないかを確かめる。

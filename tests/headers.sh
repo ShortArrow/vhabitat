@@ -30,10 +30,12 @@ done
 for origin in https://*.google-analytics.com https://*.google.com https://*.googletagmanager.com; do
   case $(directive connect-src) in *" $origin "*) ;; *) fail "connect-src lacks $origin, where Google Analytics sends its hits" ;; esac
 done
-# Cloudflare injects its Web Analytics beacon into the pages it serves, so the build never shows it
-# (developers.cloudflare.com/fundamentals/reference/policies-compliances/content-security-policies/).
+# Cloudflare injects its Web Analytics beacon into the pages it serves, so the build never shows it. The injected
+# beacon reports to this site's own /cdn-cgi/rum, so connect-src needs only 'self'; cloudflareinsights.com is where a
+# beacon embedded by hand reports (developers.cloudflare.com/web-analytics/faq/).
 case $(directive script-src) in *" https://static.cloudflareinsights.com "*) ;; *) fail "script-src lacks https://static.cloudflareinsights.com, where Cloudflare Web Analytics loads its beacon" ;; esac
-case $(directive connect-src) in *" https://cloudflareinsights.com "*) ;; *) fail "connect-src lacks https://cloudflareinsights.com, where Cloudflare Web Analytics can send its beacons" ;; esac
+case $(directive connect-src) in *" 'self' "*) ;; *) fail "connect-src lacks 'self', where Cloudflare Web Analytics sends its beacons" ;; esac
+case $(directive connect-src) in *" https://cloudflareinsights.com "*) fail "connect-src allows https://cloudflareinsights.com, which only a beacon embedded by hand needs" ;; esac
 
 # Every script a page runs must be allowed: inline ones by the hash of their text, external ones by their origin.
 script_src=$(directive script-src)
