@@ -39,5 +39,9 @@ has "$out/kind/index.html" 'href="/kind/symbiont/"'
 has "$out/browser/firenvim/index.html" '<a href="https://github.com/glacambre/firenvim">GitHub repository</a>'
 has "$out/playgrouds/index.html" 'url=https://vhabitat.shortarrow.jp/playgrounds/'
 has "$out/privacy/index.html" 'url=https://vhabitat.shortarrow.jp/privacypolicy/'
+# Every measurement the page runs, including the beacon Cloudflare injects, is named in the privacy policy.
+for measurement in 'Google Analytics' 'Cloudflare Web Analytics'; do
+  has "$out/privacypolicy/index.html" "$measurement"
+done
 
 echo ok

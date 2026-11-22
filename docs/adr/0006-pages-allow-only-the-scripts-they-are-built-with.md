@@ -67,5 +67,6 @@ Workers の静的アセットは、アセットのディレクトリにある `_
 - Google Analytics の送信先が上の 3 つから外れると、計測が止まる。Google Ads を Google Analytics につなぐときは、手引きの Ads の送信先も足す。
 - 本番の各ページで、Cloudflare のボット検出のスクリプトが CSP に止められ、ブラウザのコンソールにエラーが 1 件出る。
 - Cloudflare が差し込むスクリプトは、ビルドの出力からは検査できない。`tests/headers.sh` は、Web Analytics の 2 つの送り先がポリシーにあることだけを確かめる。Cloudflare の機能を新しく有効にするときは、本番のページでポリシーの違反が出ないかを確かめ、要るなら送り先を足す。
+- ページが測るもの（Google Analytics と Cloudflare Web Analytics）は、プライバシーポリシーに書く。`tests/run.sh` が、その名前がポリシーのページにあることを確かめる。
 - 項目に図版以外の画像やファイルを添えるときは、`tests/plates.sh` の許すファイルの決まりと、この決定を見直す。
 - 図版に新しい要素や属性を使うときは、`tests/plate_check.py` の一覧に足す。足す前に、それがスクリプトの実行や外部の読み込みにつながらないかを確かめる。
