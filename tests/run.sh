@@ -42,8 +42,10 @@ has "$out/playgrouds/index.html" 'url=https://vhabitat.shortarrow.jp/playgrounds
 for measurement in 'Google Analytics' 'Cloudflare Web Analytics'; do
   has "$out/privacy/index.html" "$measurement"
 done
-# Links and search results from before /privacy/ became the address still reach the page.
-has "$out/privacypolicy/index.html" 'url=https://vhabitat.shortarrow.jp/privacy/'
+# /privacy/ is the only address: nothing is published at /privacypolicy/ and no page of the site points there.
+# Cloudflare's own policy at www.cloudflare.com/privacypolicy/ is not this site's, so only this site's links count.
+[ ! -e "$out/privacypolicy" ] || fail "the site still publishes /privacypolicy/"
+! grep -rlE "(href=[\"']?|vhabitat\.shortarrow\.jp)/privacypolicy" "$out" || fail "a page still points to /privacypolicy/"
 # Cloudflare's bot detection can leave a cf_clearance cookie that none of the site's own scripts sets.
 has "$out/privacy/index.html" 'cf_clearance'
 
