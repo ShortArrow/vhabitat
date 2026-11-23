@@ -44,5 +44,7 @@ for measurement in 'Google Analytics' 'Cloudflare Web Analytics'; do
 done
 # Links and search results from before /privacy/ became the address still reach the page.
 has "$out/privacypolicy/index.html" 'url=https://vhabitat.shortarrow.jp/privacy/'
+# Cloudflare's bot detection can leave a cf_clearance cookie that none of the site's own scripts sets.
+has "$out/privacy/index.html" 'cf_clearance'
 
 echo ok
